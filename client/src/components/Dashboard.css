@@ -1,0 +1,24 @@
+.Dashboard {
+    margin: 2% 4%;
+    -webkit-box-sizing: border-box;
+    height: 100%;
+    position: relative;
+}
+
+.Dashboard .mainContainer{
+    position: absolute;
+    width: 60%;
+    left: 20%;
+}
+
+.Dashboard .BumperLeft {
+    position: absolute;
+    width: 19%;
+    right: 78%;
+}
+
+.Dashboard .BumperRight {
+    position: absolute;
+    width: 19%;
+    left: 78%;
+}
