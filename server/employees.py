@@ -1,5 +1,6 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import json
 
 raw_data = [{'date': '2017-03-01', 'dept': 'Sales', 'employee': 3, 'salary': 70000},
  {'date': '2015-03-01', 'dept': 'Engineering', 'employee': 4, 'salary': 45000},
@@ -100,6 +101,9 @@ class Employee:
     def __repr__(self):
         return "<Employee #%r, Dept: %r, Comp: %r, Started: %r >" % (self.id, self.department, self.salary, self.start_date)
 
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True)
+
 EMPLOYEES = Company("Starling", raw_data)
 EMPLOYEES_FORMATTED = current_employee_stats(EMPLOYEES.employee_dictionary)
 print EMPLOYEES
@@ -112,9 +116,11 @@ def department_headcount(company):
         month_dict = dict()
         current_month = start_date + relativedelta(months=+i)
         month_dict['month'] = datetime.strftime(current_month, "%Y-%m-%d")
+        month_dict['chart_label'] = datetime.strftime(current_month, "%m-%y")
         month_dict['Engineering'] = 0
         month_dict['Sales'] = 0
         month_dict['Support'] = 0
+        month_dict['Total'] = 0
         headcount_list.append(month_dict)
     for month_count in headcount_list:
         current = month_count['month']
@@ -125,6 +131,5 @@ def department_headcount(company):
                 current_position_start = max(relevant_dates)
                 dept = company.employee_dictionary[emp_id][current_position_start][0]
                 month_count[dept] += 1
+                month_count['Total'] += 1
     return headcount_list
-
-print department_headcount(EMPLOYEES)

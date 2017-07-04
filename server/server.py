@@ -6,7 +6,7 @@ from flask import render_template
 from flask import jsonify
 import os.path
 
-from employees import EMPLOYEES, EMPLOYEES_FORMATTED
+from employees import EMPLOYEES, EMPLOYEES_FORMATTED, department_headcount
 
 STATIC_RESOURCES = os.path.abspath("../client/public")
 print EMPLOYEES
@@ -39,15 +39,16 @@ def highest_earners():
         earners_desc = list()
         for department, employees in employee_list.iteritems():
             earners_desc.extend(employees)
-        earners_desc.sort(key=lambda x: x.salary)
-        return earners_desc
+        earners_desc.sort(key=lambda x: x.salary, reverse=True)
+        earners_json = [emp.to_json() for emp in earners_desc]
+        return earners_json[:10]
     earners = compute_earners(EMPLOYEES_FORMATTED)
     return jsonify(earners)
     
-@app.route("/api/headcount_over_time/<string:department>")
-def headcount(department):
-    print department
-    return jsonify({"dept": department})
+@app.route("/api/headcount_over_time")
+def headcount():
+    company_headcount = department_headcount(EMPLOYEES)
+    return jsonify(company_headcount)
 
 @app.route("/api/headcount_total")
 def total_headcount():

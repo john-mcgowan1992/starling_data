@@ -40,7 +40,8 @@ The server should get up and running by just running this file with `python simp
 """
 
 
-employee_data = [{'date': '2017-03-01', 'dept': 'Sales', 'employee': 3, 'salary': 70000},
+employee_data = [
+ {'date': '2017-03-01', 'dept': 'Sales', 'employee': 3, 'salary': 70000},
  {'date': '2015-03-01', 'dept': 'Engineering', 'employee': 4, 'salary': 45000},
  {'date': '2017-09-01', 'dept': 'Sales', 'employee': 4, 'salary': 60000},
  {'date': '2016-03-01', 'dept': 'Sales', 'employee': 5, 'salary': 40000},
@@ -80,6 +81,31 @@ employee_data = [{'date': '2017-03-01', 'dept': 'Sales', 'employee': 3, 'salary'
  {'date': '2017-05-01', 'dept': 'Sales', 'employee': 28, 'salary': 60000},
  {'date': '2017-10-01', 'dept': 'Support', 'employee': 29, 'salary': 40000},
  {'date': '2017-06-01', 'dept': 'Engineering', 'employee': 30, 'salary': 70000}]
+
+ formatted = {
+  3: {'2017-03-01': ('Sales', 70000)}, 
+  4: {'2015-03-01': ('Engineering', 45000), '2017-09-01': ('Sales', 60000)},
+  5: {'2016-02-01': ('Support', 40000), '2017-12-01': ('Support', 65000), '2016-03-01': ('Sales', 40000)},
+  6: {'2016-11-01': ('Engineering', 45000), '2016-03-01': ('Support', 70000)},
+  7: {'2017-11-01': ('Support', 50000), '2015-08-01': ('Engineering', 65000), '2015-09-01': ('Sales', 55000), '2017-04-01': ('Engineering', 70000)},
+  8: {'2015-08-01': ('Engineering', 60000)},
+  9: {'2017-11-01': ('Sales', 55000), '2015-01-01': ('Support', 55000)}, 
+  10: {'2017-12-01': ('Engineering', 55000), '2016-12-01': ('Sales', 50000), '2017-04-01': ('Engineering', 70000)}, 
+  11: {'2016-11-01': ('Support', 75000)}, 
+  12: {'2015-11-01': ('Support', 45000), '2016-06-01': ('Engineering', 40000), '2015-01-01': ('Sales', 40000), '2016-08-01': ('Sales', 40000)}, 
+  13: {'2017-08-01': ('Engineering', 75000), '2015-01-01': ('Engineering', 70000), '2016-03-01': ('Sales', 60000)}, 
+  14: {'2015-12-01': ('Sales', 60000)}, 
+  16: {'2017-07-01': ('Support', 60000)}, 
+  17: {'2016-12-01': ('Engineering', 45000)}, 
+  18: {'2017-11-01': ('Engineering', 45000)}, 
+  20: {'2015-03-01': ('Engineering', 45000)}, 
+  21: {'2016-06-01': ('Sales', 40000), '2016-09-01': ('Engineering', 70000)}, 
+  23: {'2016-02-01': ('Engineering', 75000), '2016-01-01': ('Engineering', 50000)}, 
+  24: {'2017-04-01': ('Engineering', 55000)}, 
+  25: {'2016-09-01': ('Engineering', 50000)},
+  28: {'2017-05-01': ('Sales', 60000)}, 
+  29: {'2017-10-01': ('Support', 40000)}, 
+  30: {'2017-06-01': ('Engineering', 70000)}}
 
 def run_api():
   print ":)"
