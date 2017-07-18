@@ -5,11 +5,14 @@ from flask import send_from_directory
 from flask import render_template
 from flask import jsonify
 import os.path
+from employee_utils import department_headcount
 
-from employees import EMPLOYEES, EMPLOYEES_FORMATTED, department_headcount
+# from employees import EMPLOYEES
+from Company import Company
+from raw_data import raw_data
 
+EMPLOYEES = Company('Starling', raw_data)
 STATIC_RESOURCES = os.path.abspath("../client/public")
-print EMPLOYEES
 
 app = Flask(__name__, template_folder=STATIC_RESOURCES)
 
@@ -30,7 +33,7 @@ def average_salaries():
             averages[department] = sum(salaries)/len(salaries)
         print averages
         return averages
-    salaries_dict = compute_avg(EMPLOYEES_FORMATTED)
+    salaries_dict = compute_avg(EMPLOYEES.current_employees)
     return jsonify(salaries_dict)
 
 @app.route("/api/highest_earners")
@@ -42,7 +45,7 @@ def highest_earners():
         earners_desc.sort(key=lambda x: x.salary, reverse=True)
         earners_json = [emp.to_json() for emp in earners_desc]
         return earners_json[:10]
-    earners = compute_earners(EMPLOYEES_FORMATTED)
+    earners = compute_earners(EMPLOYEES.current_employees)
     return jsonify(earners)
     
 @app.route("/api/headcount_over_time")
