@@ -64,11 +64,12 @@ class Dashboard extends Component {
             return res.json();
         })
         .then((data) => {
-            var newData = Object.assign({}, vData)
-            newData[0].earnings = data['Engineering'];
-            newData[1].earnings = data['Sales'];
-            newData[2].earnings = data['Support'];
-            // this.setState({"averages": newData})
+            var newData = vData.map((dept)=>{
+                return Object.assign({}, dept, { 
+                    earnings: data[dept.department]
+                })
+            });
+            this.setState({"averages": newData})
         })
         fetch("/api/headcount_over_time")
         .then((res) => {
